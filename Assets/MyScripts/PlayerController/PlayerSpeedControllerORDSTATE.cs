@@ -96,7 +96,7 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
 
         if (Input.GetMouseButtonDown(0))
         {
-            //прыжок, не трожь
+            //пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             if (onEarth)
             {
 
@@ -109,7 +109,7 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
 
                 //rb.velocity = new Vector2(0, player.transform.position.y);
                 StateMachine.ChangeState<PlayerJumpState>();
-                //onEarth = falseж //работат для двойного прыжка
+                //onEarth = falseпїЅ //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 ordslide = false;
                 return;
 
@@ -119,7 +119,7 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
 
             }
         }
-        //ускорение, не трожь!
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!
         else if (Input.GetMouseButtonDown(1))
         {
 
@@ -130,7 +130,7 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
 
 
 
-            //для уменьшения прогресс бара
+            //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             //if (shouldMoreSlide)
             //{
             //GameManager.Instance.SlideBarDown();
@@ -180,7 +180,10 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
     {
 
         if (ground = other.gameObject)
-        { onEarth = true; } 
+        {
+            lastGroundNormal = other.contacts[0].normal;
+            onEarth = true;
+        } 
 
 
         //// Now you can get components from the collided object
@@ -189,12 +192,15 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
         //if (other == ground.GetComponent<Collision2D>())
         
     }
+    
+    public static Vector2 lastGroundNormal = Vector2.up;
+    
     private void OnCollisionExit2D(Collision2D other)
     {
         if (ground = other.gameObject)
         { onEarth = false; }
 
-    } //регулирует второй прыжок - при этом войде прыжок только один
+    } //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 
 
@@ -204,13 +210,10 @@ public class PlayerSpeedControllerORDSTATE : PlayerStateBase
     {
         if (ordslide)
         {
-            rb.velocity = rb.velocity.normalized * currentSpeed;
-            //Input.mousePosition;
-            //Screen.width;
-
+            // РњРµРЅСЏРµРј С‚РѕР»СЊРєРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ СЃРєРѕСЂРѕСЃС‚СЊ!
+            rb.velocity = new Vector2(rb.velocity.normalized.x * currentSpeed, rb.velocity.y);
         }
         if (ordslide == false) { rb.velocity = new Vector2(0, 0); }
-        //LevelManager.Instance.SLideBar();
     }
 
 
